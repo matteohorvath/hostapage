@@ -20,6 +20,15 @@ class FileController {
     });
     return res;
   }
+  async getFile(subdomain: string) {
+    const res = await prisma.file.findMany({
+      where: {
+        subdomain: subdomain,
+      },
+      take: 1,
+    });
+    return res[0];
+  }
 }
 
 export default FileController;

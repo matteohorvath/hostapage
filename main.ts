@@ -55,15 +55,15 @@ router.post("/files/add", upload.single("file"), async (req, res) => {
 });
 app.use(vhost(domain, router));
 
-Object.keys(files).forEach((k) => {
-  const _router = Router();
-  _router.get("/", (req, res) => {
-    res.sendFile(__dirname + "/files/" + files[k].filename);
-  });
-  _router.get("/test", (req, res) => {
-    res.send("This is a test page for " + files[k].name);
-  });
-  app.use(vhost(`${files[k].subdomain}.*.${domain}`, _router));
+const _router = Router();
+_router.get("/", async (req, res) => {
+  const file: fileType = await fileController.getFile(req.vhost[0]);
+  res.sendFile(__dirname + "/files/" + file.filename);
 });
+_router.get("/test", async (req, res) => {
+  const file: fileType = await fileController.getFile(req.vhost[0]);
+  res.send("This is a test page for " + file.name);
+});
+app.use(vhost(`*.${domain}`, _router));
 
 app.listen(port);
