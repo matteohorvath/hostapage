@@ -57,6 +57,9 @@ Object.keys(files).forEach((k) => {
   _router.get("/", (req, res) => {
     res.sendFile(__dirname + "/files/" + files[k].filename);
   });
+  _router.get("/test", (req, res) => {
+    res.send("This is a test page for " + files[k].name);
+  });
   app.use(vhost(`${files[k].subdomain}.${domain}`, _router));
 });
 
