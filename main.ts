@@ -66,5 +66,9 @@ _router.get("/test", async (req, res) => {
 });
 app.use(vhost(`*.${domain}`, _router));
 
+app.get("*", function (req, res) {
+  res.status(404).send("what???");
+});
+
 console.log(`Server is running on http://${domain}:${port}`);
 app.listen(port);
