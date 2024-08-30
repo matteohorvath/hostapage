@@ -57,6 +57,7 @@ app.use(vhost(domain, router));
 
 const _router = Router();
 _router.get("/", async (req, res) => {
+  console.log(req.vhost[0]);
   const file: fileType = await fileController.getFile(req.vhost[0]);
   res.sendFile(__dirname + "/files/" + file.filename);
 });
