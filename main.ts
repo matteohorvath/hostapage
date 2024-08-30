@@ -63,7 +63,7 @@ Object.keys(files).forEach((k) => {
   _router.get("/test", (req, res) => {
     res.send("This is a test page for " + files[k].name);
   });
-  app.use(vhost(`${files[k].subdomain}.${domain}`, _router));
+  app.use(vhost(`${files[k].subdomain}.*.${domain}`, _router));
 });
 
 app.listen(port);
