@@ -57,7 +57,6 @@ app.use(vhost(domain, router));
 
 const _router = Router();
 _router.get("/", async (req, res) => {
-  console.log(req.vhost[0]);
   const file: fileType = await fileController.getFile(req.vhost[0]);
   res.sendFile(__dirname + "/files/" + file.filename);
 });
@@ -67,4 +66,5 @@ _router.get("/test", async (req, res) => {
 });
 app.use(vhost(`*.${domain}`, _router));
 
+console.log(`Server is running on http://${domain}:${port}`);
 app.listen(port);
