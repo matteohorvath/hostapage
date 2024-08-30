@@ -14,6 +14,7 @@ const storage = multer.diskStorage({
   },
 });
 var upload = multer({ storage: storage });
+const domain = "localhost";
 /*{
   files: {
     file1: "content1",
@@ -49,14 +50,14 @@ router.post("/files/add", upload.single("file"), async (req, res) => {
   });
   res.send("Thanks for uploading the file!");
 });
-app.use(vhost("localhost", router));
+app.use(vhost(domain, router));
 
 Object.keys(files).forEach((k) => {
   const _router = Router();
   _router.get("/", (req, res) => {
     res.sendFile(__dirname + "/files/" + files[k].filename);
   });
-  app.use(vhost(`${files[k].subdomain}.localhost`, _router));
+  app.use(vhost(`${files[k].subdomain}.${domain}`, _router));
 });
 
 app.listen(port);
