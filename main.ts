@@ -5,6 +5,10 @@ import { open } from "sqlite";
 import sqlite3 from "sqlite3";
 import FileController, { fileType } from "./FileController";
 
+import dotenv from "dotenv";
+dotenv.config();
+const domain = process.env.DOMAIN;
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "files/");
@@ -14,7 +18,6 @@ const storage = multer.diskStorage({
   },
 });
 var upload = multer({ storage: storage });
-const domain = "localhost";
 /*{
   files: {
     file1: "content1",
